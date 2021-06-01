@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+        //call to server
+        const socket = io('http://localhost:3001');
+
+        socket.on('Server-send-color', (data) => {
+            $("body").attr("bgColor", data)
+        })
+
+        $(document).ready(() => {
+            $("#red").click(() => {
+                socket.emit("Client-send-color", 'red')
+            })
+            $("#blue").click(() => {
+                socket.emit("Client-send-color", 'blue')
+            })
+            $("#green").click(() => {
+                socket.emit("Client-send-color", 'green')
+            })
+        });
+    </script>
+
+    <style>
+        #red, #green, #blue {
+            width: 300px;
+            height:150px;
+        }
+        #red {
+            background-color: red;
+        }
+        #green {
+            background-color: green;
+        }
+        #blue {
+            background-color: blue;
+        }
+    </style>
+</head>
+<body bgColor="pink">
+    <div id="red"></div>
+    <div id="blue"></div>
+    <div id="green"></div>
+</body>
+</html>
